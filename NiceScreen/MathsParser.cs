@@ -18,10 +18,10 @@ namespace NiceScreen
 		public double Parse()
 		{
 			var parenthetisedSectionsResolved = ResolveParentheses (_input);
-			return calculateSection(parenthetisedSectionsResolved);
+			return CalculateSection(parenthetisedSectionsResolved);
 		}
 
-		private double calculateSection(string section)
+		private double CalculateSection(string section)
 		{
 			var digits = Regex.Split (section, @"\D+").ToList ();
 			var operators = Regex.Matches (section, @"[a-d]").OfType<Match>().Select(m => m.Groups[0].Value).ToList();
@@ -69,7 +69,7 @@ namespace NiceScreen
 			if (ContainsGroupedSection(firstChunk)) {
 				firstChunk = ResolveParentheses (firstChunk);
 			}
-			var sectionResults = calculateSection(firstChunk);
+			var sectionResults = CalculateSection(firstChunk);
 
 			outputString = input.Substring (0, startBracketIndex) + sectionResults.ToString () 
 				+ input.Substring((closingBracketIndex + startBracketIndex + 2), input.Length - (closingBracketIndex +1 + startBracketIndex )  -1);
@@ -78,12 +78,12 @@ namespace NiceScreen
 
 		}
 
-		static bool ContainsGroupedSection (string firstChuck)
+		private bool ContainsGroupedSection (string firstChuck)
 		{
 			return firstChuck.IndexOf ("e") != -1;
 		}
 
-		static string GetFirstSection (string input, int startBracketIndex, ref int nestedBracketCount, ref int currentCharIndex, ref int closingBracketIndex)
+		private string GetFirstSection (string input, int startBracketIndex, ref int nestedBracketCount, ref int currentCharIndex, ref int closingBracketIndex)
 		{
 			foreach (char c in input.Substring (startBracketIndex + 1)) {
 				if (c == 'e') {
