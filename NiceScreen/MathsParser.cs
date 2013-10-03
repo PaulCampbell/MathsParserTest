@@ -17,7 +17,7 @@ namespace NiceScreen
 
 		public double Parse()
 		{
-			var parenthetisedSectionsResolved = resolveParentheses (_input);
+			var parenthetisedSectionsResolved = ResolveParentheses (_input);
 			return calculateSection(parenthetisedSectionsResolved);
 		}
 
@@ -53,7 +53,7 @@ namespace NiceScreen
 			throw new ArgumentException(String.Format("Operation {0} not supported", operation));
 		}
 
-		private string resolveParentheses(string input)
+		private string ResolveParentheses(string input)
 		{
 			var outputString = input;
 
@@ -64,17 +64,17 @@ namespace NiceScreen
 			var nestedBracketCount = 0;
 			var currentCharIndex = 0;
 			var closingBracketIndex = 0;
-			var firstChuck = GetFirstSection (input, startBracketIndex, ref nestedBracketCount, ref currentCharIndex, ref closingBracketIndex);
+			var firstChunk = GetFirstSection (input, startBracketIndex, ref nestedBracketCount, ref currentCharIndex, ref closingBracketIndex);
 
-			if (ContainsGroupedSection(firstChuck)) {
-				firstChuck = resolveParentheses (firstChuck);
+			if (ContainsGroupedSection(firstChunk)) {
+				firstChunk = ResolveParentheses (firstChunk);
 			}
-			var sectionResults = calculateSection(firstChuck);
+			var sectionResults = calculateSection(firstChunk);
 
 			outputString = input.Substring (0, startBracketIndex) + sectionResults.ToString () 
 				+ input.Substring((closingBracketIndex + startBracketIndex + 2), input.Length - (closingBracketIndex +1 + startBracketIndex )  -1);
 
-			return resolveParentheses(outputString);
+			return ResolveParentheses(outputString);
 
 		}
 

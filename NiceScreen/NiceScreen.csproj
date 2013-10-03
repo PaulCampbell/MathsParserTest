@@ -37,7 +37,4 @@
     <Compile Include="MathsParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <None Include="Readme.md" />
-  </ItemGroup>
 </Project>
